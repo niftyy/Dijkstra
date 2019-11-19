@@ -18,12 +18,14 @@ public class GUI_Panel extends JPanel {
     private Shape start, end;
     private Timer timer;
     private int num, x, y, x1, x2, y1, y2, m_new, slope_error_new;
+    private boolean isMouseDown;
     private ArrayList<Vertex> tracedPath;
     private Vertex selectedVertex;
     GUI_Panel(int height,int width){
         super();
         this.windowWidth = width;
         this.windowHeight = height;
+        this.isMouseDown = false;
         this.vertices = new ArrayList<Vertex>();
         this.edges = new ArrayList<Edge>();;
         this.tracedPath = null;
@@ -31,6 +33,25 @@ public class GUI_Panel extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setBackground(new Color(45, 45, 45));
         setVisible(true);
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+                    int x =  e.getX();
+                    int y = e.getY();
+                    if(x%20 > 10){
+                        x+=20;
+                    }
+                    if(y%20 > 10){
+                        y+=20;
+                    }
+                    selectedVertex.setX(x/20);
+                    selectedVertex.setY(y/20);
+                    removeAll();
+                    revalidate();
+                    repaint();
+            }
+        });
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -98,7 +119,7 @@ public class GUI_Panel extends JPanel {
         if(shape != null){
             g.setColor(new Color(255,0,0));
             if(shape instanceof Circle)
-                g.drawOval((int) shape.getX()*20-10,(int) shape.getY()*20-10, (int) shape.getLength(), (int) shape.getWidth());
+                g.drawOval((int) shape.getX(),(int) shape.getY(), (int) shape.getLength(), (int) shape.getWidth());
             else if(shape instanceof Square)
                 g.drawRect((int) shape.getX()*20-10,(int) shape.getY()*20-10, (int) shape.getLength(), (int) shape.getWidth());
             else if(shape instanceof Rectangle)
@@ -231,6 +252,9 @@ public class GUI_Panel extends JPanel {
             if(current.getV().getName().compareTo(destination_vertex.getName()) == 0){
                 visited.add(current);
                 ArrayList<Vertex> traced = trace(destination_vertex, visited, text);
+                if(timer != null && timer.isRunning()){
+                    timer.stop();
+                }
                 if(onGraph){
                     drawPath(traced);
                 } else if(text){
@@ -301,7 +325,7 @@ public class GUI_Panel extends JPanel {
 
     public void animate(ArrayList<Vertex> traced, String s){
         if(s.compareTo("circle") == 0)
-            shape = new Circle(traced.get(0).getX(),traced.get(0).getY());
+            shape = new Circle(traced.get(0).getX()*20-10,traced.get(0).getY()*20-10);
         else if(s.compareTo("square") == 0)
             shape = new Square(traced.get(0).getX(),traced.get(0).getY());
         else if(s.compareTo("rectangle") == 0)
@@ -310,17 +334,18 @@ public class GUI_Panel extends JPanel {
         timer = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int dx = (int)(traced.get((num+1)%traced.size()).getX() - shape.getX());
-                int dy = (int)(traced.get((num+1)%traced.size()).getY() - shape.getY());
+                int dx = (int)(traced.get((num+1)%traced.size()).getX()*20-10 - shape.getX());
+                int dy = (int)(traced.get((num+1)%traced.size()).getY()*20-10 - shape.getY());
                 if(dx == 0 && dy == 0){
                     num++;
                     if(num == traced.size()-1){
-                        shape.setX(traced.get(0).getX());
-                        shape.setY(traced.get(0).getY());
+                        shape.setX(traced.get(0).getX()*20-10);
+                        shape.setY(traced.get(0).getY()*20-10);
                         num = 0;
                     }
                 } else {
                     double steps = Math.abs(dx) > Math.abs(dy) ? Math.abs(dx) : Math.abs(dy);
+                    steps = steps/10;
                     double Xinc = dx / (double) steps;
                     double Yinc = dy / (double) steps;
                     double X = shape.getX(), Y = shape.getY();
