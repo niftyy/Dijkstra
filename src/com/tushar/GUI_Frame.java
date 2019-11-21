@@ -3,10 +3,7 @@ package com.tushar;
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -301,6 +298,50 @@ public class GUI_Frame extends JFrame {
         menu_bar.add(dijkstra);
         setMenuBar(menu_bar);
         //############################################################################
+        addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if(e.getKeyChar() == 'v' || e.getKeyChar() == 'V'){
+                    pane.vertexMode = !pane.vertexMode; // toggling modes
+                    pane.edgeMode = false;
+                    System.out.println("vertex mode : " + pane.vertexMode);
+                }
+                else if(e.getKeyChar() == 'e' || e.getKeyChar() == 'E'){
+                    pane.edgeMode = !pane.edgeMode; // toggling modes
+                    pane.vertexMode = false;
+                    System.out.println("edge mode : " + pane.edgeMode);
+                } // delete selected vertex / edge
+                else if(e.getKeyChar() == 'd' || e.getKeyChar() == 'D'){
+                    System.out.println("Something is going to get deleted");
+                    if(pane.getSelectedVertex() != null && pane.vertexMode)
+                        pane.deleteVertex(pane.getSelectedVertex().getName());
+                    else if(pane.getSelectedEdge() != null && pane.edgeMode)
+                        pane.deleteEdge(pane.getSelectedEdge().getV1().getName(), pane.getSelectedEdge().getV2().getName());
+                } else if(e.getKeyChar() == 'P' || e.getKeyChar() == 'p'){
+                    pane.paintMode = !pane.paintMode; // toggle paint mode
+                    System.out.println("paint mode : " + pane.paintMode);
+                }else if(e.getKeyChar() == 'C' || e.getKeyChar() == 'c'){
+                    // cancel all modes
+                    pane.edgeMode = false;
+                    pane.vertexMode = false;
+                    pane.paintMode = false;
+                    pane.removeSelectedVertex();
+                    pane.removeSelectedEdge();
+                    pane.removeAll();
+                    pane.revalidate();
+                    pane.repaint();
+                }
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
         getContentPane().setLayout(new BorderLayout());
         add(this.pane,BorderLayout.CENTER);
         setExtendedState(JFrame.MAXIMIZED_BOTH);

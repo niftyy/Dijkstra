@@ -7,7 +7,7 @@ import java.awt.geom.Point2D;
 import java.util.*;
 import javax.swing.Timer;
 
-public class GUI_Panel extends JPanel {
+public class GUI_Panel extends JPanel{
     private int windowWidth;
     private int windowHeight;
     private ArrayList<Vertex> vertices;
@@ -20,6 +20,15 @@ public class GUI_Panel extends JPanel {
     private boolean isMouseDown;
     private ArrayList<Vertex> tracedPath;
     private Vertex selectedVertex;
+    private Edge selectedEdge;
+    // MODE SELECTORS
+    boolean vertexMode; // for selecting vertices
+    boolean edgeMode; // for selecting edges
+    boolean paintMode; // for drawing edges
+    Vertex startVertex;
+    Vertex endVertex;
+    int mouseX;
+    int mouseY;
     GUI_Panel(int height,int width){
         super();
         this.windowWidth = width;
@@ -29,27 +38,104 @@ public class GUI_Panel extends JPanel {
         this.edges = new ArrayList<Edge>();;
         this.vertexSet = new HashSet<>();
         this.tracedPath = null;
+        this.selectedVertex = null;
+        this.selectedEdge = null;
+        this.vertexMode = false;
+        this.edgeMode = false;
+        this.paintMode = false;
+        this.startVertex = null;
+        this.endVertex = null;
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setBackground(new Color(45, 45, 45));
         setVisible(true);
+        addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+               // System.out.println("mouse clicked");
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                System.out.println("mouse pressed");
+                int x = e.getX();
+                int y = e.getY();
+                // select vertex
+                if(paintMode){
+                    startVertex = null;
+                    for(Vertex v: vertices){
+                        int x2 = v.getX();
+                        int y2 = v.getY();
+                        if(Point2D.distance(x, y, x2*20, y2*20) < 20){
+                            startVertex = v;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                System.out.println("mouse released");
+                int x = e.getX();
+                int y = e.getY();
+                // select vertex
+                if(paintMode){
+                    endVertex = null;
+                    for(Vertex v: vertices){
+                        int x2 = v.getX();
+                        int y2 = v.getY();
+                        if(Point2D.distance(x, y, x2*20, y2*20) < 20){
+                            endVertex = v;
+                            int x1 = startVertex.getX();
+                            int y1 = startVertex.getY();
+                            String cost = JOptionPane.showInputDialog("Enter the cost");
+                            addEdge(startVertex.getName(), endVertex.getName(), Integer.parseInt(cost));
+                            break;
+                        }
+                    }
+                    startVertex = null;
+                    endVertex = null;
+                    removeAll();
+                    revalidate();
+                    repaint();
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                //System.out.println("mouse entered");
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                //System.out.println("mouse exited");
+            }
+        });
         addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
-                    int x =  e.getX();
-                    int y = e.getY();
-                    if(x%20 > 10){
-                        x+=20;
-                    }
-                    if(y%20 > 10){
-                        y+=20;
-                    }
+                int x =  e.getX();
+                int y = e.getY();
+                if(x%20 > 10){
+                    x+=20;
+                }
+                if(y%20 > 10){
+                    y+=20;
+                }
+                if(paintMode){
+                    // draw from start vertex to current mouse pointer position
+                    mouseX = x/20;
+                    mouseY = y/20;
+                }else if(selectedVertex != null){
+                    // drag vertex
                     selectedVertex.setX(x/20);
                     selectedVertex.setY(y/20);
-                    removeAll();
-                    revalidate();
-                    repaint();
+                }
+                removeAll();
+                revalidate();
+                repaint();
             }
         });
         addMouseListener(new MouseAdapter() {
@@ -58,29 +144,48 @@ public class GUI_Panel extends JPanel {
                 super.mouseClicked(e);
                 int x = e.getX();
                 int y = e.getY();
-                selectedVertex = null;
-                for(Vertex v: vertices){
-                    int x2 = v.getX();
-                    int y2 = v.getY();
-                    if(Point2D.distance(x, y, x2*20, y2*20) < 20){
-                        // toggle if already selected else select
-                        selectedVertex = selectedVertex == null ? v : null;
-                        removeAll();
-                        revalidate();
-                        repaint();
-                        // TODO add key listener to delete selected vertex
-                        return;
+                // select vertex
+                if(vertexMode){
+                    selectedVertex = null;
+                    for(Vertex v: vertices){
+                        int x2 = v.getX();
+                        int y2 = v.getY();
+                        if(Point2D.distance(x, y, x2*20, y2*20) < 20){
+                            // toggle if already selected else select
+                            selectedVertex = v;
+                            break;
+                        }
                     }
                 }
-                String name = JOptionPane.showInputDialog("Enter vertex name");
-                if(name == null) return;
-                if(x%20 > 10){
-                    x+=20;
+                // select edge
+                else if(edgeMode){
+                    selectedEdge = null;
+                    for(Edge edge: edges){
+                        int x1 = edge.getV1().getX()*20;
+                        int y1 = edge.getV1().getY()*20;
+                        int x2 = edge.getV2().getX()*20;
+                        int y2 = edge.getV2().getY()*20;
+                        double slope = (double)(y2-y1)/(x2-x1);
+                        if(Math.abs((y-y1) - slope * (x - x1)) < 20){
+                            selectedEdge = edge;
+                            break;
+                        }
+                    }
+                } else if(!paintMode){
+                    // click to add vertex
+                    String name = JOptionPane.showInputDialog("Enter vertex name");
+                    if(name == null) return;
+                    if(x%20 > 10){
+                        x+=20;
+                    }
+                    if(y%20 > 10){
+                        y+=20;
+                    }
+                    addVertex(name,x/20,y/20);
                 }
-                if(y%20 > 10){
-                    y+=20;
-                }
-                addVertex(name,x/20,y/20);
+                removeAll();
+                revalidate();
+                repaint();
             }
         });
     }
@@ -98,6 +203,7 @@ public class GUI_Panel extends JPanel {
         drawGrid(g);
         g.setColor(new Color(255,255,255));
         Graphics2D g2d = (Graphics2D) g;
+        // draw vertices
         for(int i = 0;i < vertices.size();i++){
             g.drawString(vertices.get(i).getName(),vertices.get(i).getX()*20-5,vertices.get(i).getY()*20+5);
             g.drawOval(vertices.get(i).getX()*20 - 10,vertices.get(i).getY()*20 - 10,20,20);
@@ -122,6 +228,7 @@ public class GUI_Panel extends JPanel {
                 g2d.drawLine(tracedPath.get(i).getX()*20, tracedPath.get(i).getY()*20, tracedPath.get(i+1).getX()*20, tracedPath.get(i+1).getY()*20);
             }
         }
+        // draw shape for animation
         if(shape != null){
             g.setColor(new Color(255,0,0));
             if(shape instanceof Circle)
@@ -131,11 +238,44 @@ public class GUI_Panel extends JPanel {
             else if(shape instanceof Rectangle)
                 g.drawRect((int) shape.getX()*20-10,(int) shape.getY()*20-10, (int) shape.getLength(), (int) shape.getWidth());
         }
-
+        // highlight selected vertex
         if(selectedVertex != null){
             g.setColor(new Color(255, 198, 22));
             g.drawOval(selectedVertex.getX()*20-10, selectedVertex.getY()*20-10, 20, 20);
         }
+        // highlight selected edge
+        if(selectedEdge != null){
+            int x1 = selectedEdge.getV1().getX() * 20;
+            int y1 = selectedEdge.getV1().getY() * 20;
+            int x2 = selectedEdge.getV2().getX() * 20;
+            int y2 = selectedEdge.getV2().getY() * 20;
+            g2d.setStroke(new BasicStroke(3));
+            g2d.setColor(new Color(255, 198, 22));
+            g2d.drawLine(x1, y1, x2, y2);
+        }
+        // draw edge
+        if(startVertex != null){
+            int x1 = startVertex.getX() * 20;
+            int y1 = startVertex.getY() * 20;
+            g2d.setStroke(new BasicStroke(1));
+            g2d.drawLine(x1, y1, mouseX * 20, mouseY * 20);
+        }
+    }
+
+    public Vertex getSelectedVertex(){
+        return selectedVertex;
+    }
+
+    public Edge getSelectedEdge(){
+        return selectedEdge;
+    }
+
+    public void removeSelectedVertex(){
+        selectedVertex = null;
+    }
+
+    public void removeSelectedEdge(){
+        selectedEdge = null;
     }
 
     public void drawGrid(Graphics g){
@@ -193,6 +333,7 @@ public class GUI_Panel extends JPanel {
             }
             if(i == vertices.size()) throw new GraphException("Vertex not found");
             i = 0;
+            selectedVertex = null;
             while(i < edges.size()){
                 if(edges.get(i).getV1().getName().compareTo(vertex_name) == 0 || edges.get(i).getV2().getName().compareTo(vertex_name) == 0){
                     edges.remove(edges.get(i));
@@ -247,13 +388,15 @@ public class GUI_Panel extends JPanel {
             int i = 0;
             boolean removed = false;
             while(i < edges.size()){
-                if(edges.get(i).getV1().getName().compareTo(vertex_name1) == 0 || edges.get(i).getV2().getName().compareTo(vertex_name2) == 0){
+                if(edges.get(i).getV1().getName().compareTo(vertex_name1) == 0 && edges.get(i).getV2().getName().compareTo(vertex_name2) == 0){
                     edges.remove(edges.get(i));
                     removed = true;
+                    break;
                 }
                 i++;
             }
             if(!removed) throw new GraphException("Edge not found");
+            selectedEdge = null;
             removeAll();
             revalidate();
             repaint();
@@ -428,6 +571,8 @@ public class GUI_Panel extends JPanel {
         end = null;
         selectedVertex = null;
         shape = null;
+        startVertex = null;
+        endVertex = null;
         if(timer != null && timer.isRunning()){
             timer.stop();
         }
