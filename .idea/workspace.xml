@@ -2,8 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aa5cb01d-d7dd-4a0b-a793-d8d05569213c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$10.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$11.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$12.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$13.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$14.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$15.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$15.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$8.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$9.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Panel$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Panel$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Panel$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Panel$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Panel$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Panel$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Panel$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Panel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Panel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tushar/GUI_Frame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tushar/GUI_Frame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tushar/GUI_Panel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tushar/GUI_Panel.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,20 +35,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/tushar/GUI_Panel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4571">
-              <caret line="83" column="13" selection-start-line="83" selection-start-column="13" selection-end-line="83" selection-end-column="13" />
+            <state relative-caret-position="235">
+              <caret line="227" column="16" selection-start-line="227" selection-start-column="16" selection-end-line="227" selection-end-column="16" />
+              <folding>
+                <element signature="class#9624:10031" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/tushar/GUI_Frame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2457">
-              <caret line="117" column="48" selection-start-line="117" selection-start-column="48" selection-end-line="117" selection-end-column="48" />
+            <state relative-caret-position="557">
+              <caret line="164" column="80" selection-start-line="164" selection-start-column="80" selection-end-line="164" selection-end-column="80" />
             </state>
           </provider>
         </entry>
@@ -86,15 +107,16 @@
         <option value="$PROJECT_DIR$/src/com/tushar/Rectangle.java" />
         <option value="$PROJECT_DIR$/src/com/tushar/Circle.java" />
         <option value="$PROJECT_DIR$/src/com/tushar/Square.java" />
-        <option value="$PROJECT_DIR$/src/com/tushar/GUI_Frame.java" />
+        <option value="$PROJECT_DIR$/src/com/tushar/GraphException.java" />
         <option value="$PROJECT_DIR$/src/com/tushar/GUI_Panel.java" />
+        <option value="$PROJECT_DIR$/src/com/tushar/GUI_Frame.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="2" />
-    <option name="y" value="23" />
-    <option name="width" value="1313" />
+    <option name="x" value="23" />
+    <option name="y" value="31" />
+    <option name="width" value="1378" />
     <option name="height" value="877" />
   </component>
   <component name="ProjectId" id="1TKRKQyk1Na8iTTr49NgPsoyGHz" />
@@ -192,11 +214,20 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="2" y="23" width="1313" height="877" extended-state="0" />
+    <frame x="62" y="23" width="1378" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26435876" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25898203" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -209,10 +240,10 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32899868" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32899868" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32899868" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32769832" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -254,6 +285,32 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="editorHistoryManager">
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/src.zip!/java/awt/Component.java">
@@ -305,10 +362,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/tushar/GUI_Frame.java">
+    <entry file="file://$PROJECT_DIR$/src/com/tushar/Edge.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2457">
-          <caret line="117" column="48" selection-start-line="117" selection-start-column="48" selection-end-line="117" selection-end-column="48" />
+        <state relative-caret-position="168">
+          <caret line="8" column="21" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -326,17 +383,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/tushar/Edge.java">
+    <entry file="file://$PROJECT_DIR$/src/com/tushar/GraphException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="21" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="21" />
+        <state relative-caret-position="126">
+          <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tushar/GUI_Panel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4571">
-          <caret line="83" column="13" selection-start-line="83" selection-start-column="13" selection-end-line="83" selection-end-column="13" />
+        <state relative-caret-position="235">
+          <caret line="227" column="16" selection-start-line="227" selection-start-column="16" selection-end-line="227" selection-end-column="16" />
+          <folding>
+            <element signature="class#9624:10031" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tushar/GUI_Frame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="557">
+          <caret line="164" column="80" selection-start-line="164" selection-start-column="80" selection-end-line="164" selection-end-column="80" />
         </state>
       </provider>
     </entry>

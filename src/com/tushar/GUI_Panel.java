@@ -4,9 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.*;
 import javax.swing.Timer;
 
 public class GUI_Panel extends JPanel {
@@ -14,6 +12,7 @@ public class GUI_Panel extends JPanel {
     private int windowHeight;
     private ArrayList<Vertex> vertices;
     private ArrayList<Edge> edges;
+    private Set<String> vertexSet;
     private Shape shape;
     private Shape start, end;
     private Timer timer;
@@ -28,6 +27,7 @@ public class GUI_Panel extends JPanel {
         this.isMouseDown = false;
         this.vertices = new ArrayList<Vertex>();
         this.edges = new ArrayList<Edge>();;
+        this.vertexSet = new HashSet<>();
         this.tracedPath = null;
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -63,8 +63,8 @@ public class GUI_Panel extends JPanel {
                     int x2 = v.getX();
                     int y2 = v.getY();
                     if(Point2D.distance(x, y, x2*20, y2*20) < 20){
-                        selectedVertex = v;
-                        System.out.println("found");
+                        // toggle if already selected else select
+                        selectedVertex = selectedVertex == null ? v : null;
                         removeAll();
                         revalidate();
                         repaint();
@@ -102,8 +102,14 @@ public class GUI_Panel extends JPanel {
             g.drawString(vertices.get(i).getName(),vertices.get(i).getX()*20-5,vertices.get(i).getY()*20+5);
             g.drawOval(vertices.get(i).getX()*20 - 10,vertices.get(i).getY()*20 - 10,20,20);
         }
-        for(int i = 0;i < edges.size();i++){
-            g.drawLine(edges.get(i).getV1().getX()*20,edges.get(i).getV1().getY()*20,edges.get(i).getV2().getX()*20,edges.get(i).getV2().getY()*20);
+        // drawing edges with costs
+        for(Edge e: edges){
+            int x1 = e.getV1().getX() * 20;
+            int y1 = e.getV1().getY() * 20;
+            int x2 = e.getV2().getX() * 20;
+            int y2 = e.getV2().getY() * 20;
+            g.drawLine(x1, y1, x2, y2);
+            g.drawString(Integer.toString(e.getCost()), (x1+x2)/2 + 5, (y1+y2)/2 + 5);
         }
         g2d.setStroke(new BasicStroke(3));
         if(start != null && end !=null){
@@ -143,19 +149,29 @@ public class GUI_Panel extends JPanel {
     }
 
     public void addVertex(String name,int x,int y){
-        Vertex new_vertex = new Vertex(x,y,name);
-        this.vertices.add(new_vertex);
-        removeAll();
-        revalidate();
-        repaint();
+        try {
+            if(vertexSet.contains(name))
+                throw new GraphException("Vertex already exists.");
+            Vertex new_vertex = new Vertex(x,y,name);
+            this.vertices.add(new_vertex);
+            this.vertexSet.add(name);
+            removeAll();
+            revalidate();
+            repaint();
+        } catch(GraphException err){
+                JFrame frame = new JFrame("Error");
+                JOptionPane.showMessageDialog(frame, err.getMessage());
+            }
     }
 
     public Vertex findVertex(String vertex_name){
         int i = 0;
-        while(this.vertices.size() > i && this.vertices.get(i).getName().compareTo(vertex_name) != 0){
+        while(this.vertices.size() > i){
+            if(this.vertices.get(i).getName().compareTo(vertex_name) == 0)
+                return this.vertices.get(i);
             i++;
         }
-        return this.vertices.get(i);
+        return null;
     }
 
     public void alterVertex(Vertex v,int x,int y){
@@ -167,43 +183,54 @@ public class GUI_Panel extends JPanel {
     }
 
     public void deleteVertex(String vertex_name){
-        for(int i = 0;i < vertices.size();i++){
-            if(vertices.get(i).getName().compareTo(vertex_name) == 0){
-                vertices.remove(vertices.get(i));
-                break;
+        try {
+            int i;
+            for(i = 0;i < vertices.size();i++){
+                if(vertices.get(i).getName().compareTo(vertex_name) == 0){
+                    vertices.remove(vertices.get(i));
+                    break;
+                }
             }
-        }
-        int i = 0;
-        while(i < edges.size()){
-            if(edges.get(i).getV1().getName().compareTo(vertex_name) == 0 || edges.get(i).getV2().getName().compareTo(vertex_name) == 0){
-                edges.remove(edges.get(i));
-            } else {
-                i++;
+            if(i == vertices.size()) throw new GraphException("Vertex not found");
+            i = 0;
+            while(i < edges.size()){
+                if(edges.get(i).getV1().getName().compareTo(vertex_name) == 0 || edges.get(i).getV2().getName().compareTo(vertex_name) == 0){
+                    edges.remove(edges.get(i));
+                } else {
+                    i++;
+                }
             }
+            removeAll();
+            revalidate();
+            repaint();
+        } catch (GraphException err){
+            JFrame frame = new JFrame("Error");
+            JOptionPane.showMessageDialog(frame, err.getMessage());
         }
-        removeAll();
-        revalidate();
-        repaint();
     }
 
     public void addEdge(String vertex_name1,String vertex_name2,int cost){
-        Vertex v1 = findVertex(vertex_name1);
-        Vertex v2 = findVertex(vertex_name2);
-        Edge new_edge = new Edge(v1,v2,cost);
-        this.edges.add(new_edge);
-        removeAll();
-        revalidate();
-        repaint();
+        try {
+            Vertex v1 = findVertex(vertex_name1);
+            Vertex v2 = findVertex(vertex_name2);
+            if(v1 == null || v2 == null) throw new GraphException("Vertex not found");
+            Edge new_edge = new Edge(v1,v2,cost);
+            this.edges.add(new_edge);
+            removeAll();
+            revalidate();
+            repaint();
+        } catch (GraphException err){
+            JFrame frame = new JFrame("Error");
+            JOptionPane.showMessageDialog(frame, err.getMessage());
+        }
     }
 
     public Edge findEdge(String vertex_name1,String vertex_name2){
         int i = 0;
         while(i < edges.size()){
-            if(edges.get(i).getV1().getName().compareTo(vertex_name1) == 0 || edges.get(i).getV2().getName().compareTo(vertex_name2) == 0){
+            if(edges.get(i).getV1().getName().compareTo(vertex_name1) == 0 && edges.get(i).getV2().getName().compareTo(vertex_name2) == 0)
                 return edges.get(i);
-            } else {
-                i++;
-            }
+            i++;
         }
         return null;
     }
@@ -216,65 +243,79 @@ public class GUI_Panel extends JPanel {
     }
 
     public void deleteEdge(String vertex_name1,String vertex_name2){
-        int i = 0;
-        while(i < edges.size()){
-            if(edges.get(i).getV1().getName().compareTo(vertex_name1) == 0 || edges.get(i).getV2().getName().compareTo(vertex_name2) == 0){
-                edges.remove(edges.get(i));
-            } else {
+        try{
+            int i = 0;
+            boolean removed = false;
+            while(i < edges.size()){
+                if(edges.get(i).getV1().getName().compareTo(vertex_name1) == 0 || edges.get(i).getV2().getName().compareTo(vertex_name2) == 0){
+                    edges.remove(edges.get(i));
+                    removed = true;
+                }
                 i++;
             }
+            if(!removed) throw new GraphException("Edge not found");
+            removeAll();
+            revalidate();
+            repaint();
+        } catch (GraphException err){
+            JFrame frame = new JFrame("Error");
+            JOptionPane.showMessageDialog(frame, err.getMessage());
         }
-        removeAll();
-        revalidate();
-        repaint();
     }
 
     public void dijkstra(String source, String destination, boolean text, boolean onGraph, String shape){
-        Comparator<State> comparator = new Comparator<State>() {
-            @Override
-            public int compare(State o1, State o2) {
-                if(o1.getCost() > o2.getCost()){
-                    return 1;
-                } else if(o1.getCost() < o2.getCost()){
-                    return -1;
-                } else{
-                    return o1.getV().getName().compareTo(o2.getV().getName());
+        try {
+            if(!vertexSet.contains(source)) throw new GraphException("Source does not exist");
+            if(!vertexSet.contains(destination)) throw new GraphException("Destination does not exist");
+            Comparator<State> comparator = new Comparator<State>() {
+                @Override
+                public int compare(State o1, State o2) {
+                    if(o1.getCost() > o2.getCost()){
+                        return 1;
+                    } else if(o1.getCost() < o2.getCost()){
+                        return -1;
+                    } else{
+                        return o1.getV().getName().compareTo(o2.getV().getName());
+                    }
                 }
-            }
-        };
-        PriorityQueue<State> queue = new PriorityQueue<State>(comparator);
-        Vertex source_vertex = findVertex(source);
-        Vertex destination_vertex = findVertex(destination);
-        ArrayList<State> visited = new ArrayList<State>();
-        queue.add(new State(source_vertex,null,0));
-        while(queue.size() > 0){
-            State current = queue.poll();
-            if(current.getV().getName().compareTo(destination_vertex.getName()) == 0){
+            };
+            PriorityQueue<State> queue = new PriorityQueue<State>(comparator);
+            Vertex source_vertex = findVertex(source);
+            Vertex destination_vertex = findVertex(destination);
+            ArrayList<State> visited = new ArrayList<State>();
+            queue.add(new State(source_vertex,null,0));
+            while(queue.size() > 0){
+                State current = queue.poll();
+                if(current.getV().getName().compareTo(destination_vertex.getName()) == 0){
+                    visited.add(current);
+                    ArrayList<Vertex> traced = trace(destination_vertex, visited, text);
+                    if(timer != null && timer.isRunning()){
+                        timer.stop();
+                    }
+                    if(onGraph){
+                        drawPath(traced);
+                    } else if(text){
+                        displayPath(traced);
+                    } else {
+                        drawPath(traced);
+                        animate(traced, shape);
+                    }
+                    return;
+                }
+                if(!isVisited(current.getV(),visited)){
+                    ArrayList<State> temp = getNextStates(current,visited);
+                    while(temp.size() > 0){
+                        queue.add(temp.remove(0));
+                    }
+                }
                 visited.add(current);
-                ArrayList<Vertex> traced = trace(destination_vertex, visited, text);
-                if(timer != null && timer.isRunning()){
-                    timer.stop();
-                }
-                if(onGraph){
-                    drawPath(traced);
-                } else if(text){
-                    displayPath(traced);
-                } else {
-                    drawPath(traced);
-                    animate(traced, shape);
-                }
-                return;
             }
-            if(!isVisited(current.getV(),visited)){
-                ArrayList<State> temp = getNextStates(current,visited);
-                while(temp.size() > 0){
-                    queue.add(temp.remove(0));
-                }
-            }
-            visited.add(current);
+            JFrame frame = new JFrame("A");
+            JOptionPane.showMessageDialog(frame,"Not Found!!");
+        } catch (GraphException err){
+            JFrame frame = new JFrame("Error");
+            JOptionPane.showMessageDialog(frame,err.getMessage());
         }
-        JFrame frame = new JFrame("A");
-        JOptionPane.showMessageDialog(frame,"Not Found!!");
     }
 
     public ArrayList<State> getNextStates(State current,ArrayList<State> visited){
@@ -362,55 +403,6 @@ public class GUI_Panel extends JPanel {
         timer.start();
     }
 
-
-    public void animate(ArrayList<Vertex> traced){
-        shape = new Circle(traced.get(0).getX(),traced.get(0).getY());
-        // initialize the loop
-        x1 = (int)shape.getX();
-        y1 = (int)shape.getY();
-        x2 = traced.get(1).getX();
-        y2 = traced.get(1).getY();
-        x = x1;
-        y = y1;
-        m_new = 2 * (y2 - y1);
-        slope_error_new = m_new - (x2 - x1);
-        num = 0;
-        timer = new Timer(150, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(x > x2){
-                    //num++;
-                    if(num == traced.size()-1){
-                        shape.setX(traced.get(0).getX());
-                        shape.setY(traced.get(0).getY());
-                        num = 0;
-                    }
-                    num++;
-                    // reinitialize for next vertex
-                    x1 = (int)shape.getX();
-                    y1 = (int)shape.getY();
-                    x2 = traced.get(num).getX();
-                    y2 = traced.get(num).getY();
-                    x = x1;
-                    y = y1;
-                } else {
-                    shape.setX(x);
-                    shape.setY(y);
-                    slope_error_new += m_new;
-                    if (slope_error_new >= 0) {
-                        y++;
-                        slope_error_new -= 2 * (x2 - x1);
-                    }
-                    x++;
-                    removeAll();
-                    revalidate();
-                    repaint();
-                }
-            }
-        });
-        timer.start();
-    }
-
     public void displayPath(ArrayList<Vertex> traced){
         String path = "Path:\n";
         for(Vertex v: traced){
@@ -431,6 +423,14 @@ public class GUI_Panel extends JPanel {
     }
 
     public void renew(){
+        tracedPath = null;
+        start = null;
+        end = null;
+        selectedVertex = null;
+        shape = null;
+        if(timer != null && timer.isRunning()){
+            timer.stop();
+        }
         while (vertices.size()>0){
             vertices.remove(0);
         }
