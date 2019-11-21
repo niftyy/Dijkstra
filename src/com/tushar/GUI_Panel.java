@@ -16,8 +16,7 @@ public class GUI_Panel extends JPanel{
     private Shape shape;
     private Shape start, end;
     private Timer timer;
-    private int num, x, y, x1, x2, y1, y2, m_new, slope_error_new;
-    private boolean isMouseDown;
+    private int num;
     private ArrayList<Vertex> tracedPath;
     private Vertex selectedVertex;
     private Edge selectedEdge;
@@ -33,7 +32,6 @@ public class GUI_Panel extends JPanel{
         super();
         this.windowWidth = width;
         this.windowHeight = height;
-        this.isMouseDown = false;
         this.vertices = new ArrayList<Vertex>();
         this.edges = new ArrayList<Edge>();;
         this.vertexSet = new HashSet<>();
@@ -459,6 +457,8 @@ public class GUI_Panel extends JPanel{
             JFrame frame = new JFrame("Error");
             JOptionPane.showMessageDialog(frame,err.getMessage());
         }
+        // TODO Animate multiple paths
+        // TODO Add more shapes
     }
 
     public ArrayList<State> getNextStates(State current,ArrayList<State> visited){
