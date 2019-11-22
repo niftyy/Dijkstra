@@ -200,13 +200,8 @@ public class GUI_Panel extends JPanel{
     public void paint(Graphics g){
         super.paint(g);
         drawGrid(g);
-        g.setColor(new Color(255,255,255));
+        g.setColor(new Color(250,250,250));
         Graphics2D g2d = (Graphics2D) g;
-        // draw vertices
-        for(int i = 0;i < vertices.size();i++){
-            g.drawString(vertices.get(i).getName(),vertices.get(i).getX()*20-5,vertices.get(i).getY()*20+5);
-            g.drawOval(vertices.get(i).getX()*20 - 10,vertices.get(i).getY()*20 - 10,20,20);
-        }
         // drawing edges with costs
         for(Edge e: edges){
             int x1 = e.getV1().getX() * 20;
@@ -218,20 +213,32 @@ public class GUI_Panel extends JPanel{
         }
         g2d.setStroke(new BasicStroke(3));
         if(start != null && end !=null){
-            g.setColor(new Color(157, 255, 38));
-            g2d.drawOval((int)start.getX()*20-10, (int)start.getY()*20-10, 20, 20);
-            g2d.drawOval((int)end.getX()*20-10, (int)end.getY()*20-10, 20, 20);
-            g2d.setStroke(new BasicStroke(3));
-            g2d.setColor(new Color(14, 192, 255));
+            g2d.setColor(new Color(42, 255, 223));
             for(int i=0 ; i<tracedPath.size()-1 ; i++){
                 g2d.drawLine(tracedPath.get(i).getX()*20, tracedPath.get(i).getY()*20, tracedPath.get(i+1).getX()*20, tracedPath.get(i+1).getY()*20);
             }
         }
+        // draw vertices
+        for(int i = 0;i < vertices.size();i++){
+            g.setColor(new Color(255, 255, 255));
+            g.fillOval(vertices.get(i).getX()*20 - 10,vertices.get(i).getY()*20 - 10,20,20);
+           // g.drawOval(vertices.get(i).getX()*20 - 10,vertices.get(i).getY()*20 - 10,20,20);
+        }
+        // highlight start end end vertex for dijkstra
+        if(start != null  && end != null){
+            g.setColor(new Color(255, 198, 0));
+            g2d.fillOval((int)start.getX()*20-10, (int)start.getY()*20-10, 20, 20);
+            g2d.fillOval((int)end.getX()*20-10, (int)end.getY()*20-10, 20, 20);
+        }
+        for(Vertex v: vertices){
+            g.setColor(new Color(0, 0, 0));
+            g.drawString(v.getName(),v.getX()*20-5,v.getY()*20+5);
+        }
         // draw shape for animation
         if(shape != null){
-            g.setColor(new Color(255,0,0));
+            g.setColor(new Color(255, 42, 74));
             if(shape instanceof Circle)
-                g.drawOval((int) shape.getX(),(int) shape.getY(), (int) shape.getLength(), (int) shape.getWidth());
+                g.fillOval((int) shape.getX(),(int) shape.getY(), (int) shape.getLength(), (int) shape.getWidth());
             else if(shape instanceof Square)
                 g.drawRect((int) shape.getX()*20-10,(int) shape.getY()*20-10, (int) shape.getLength(), (int) shape.getWidth());
             else if(shape instanceof Rectangle)
@@ -239,7 +246,7 @@ public class GUI_Panel extends JPanel{
         }
         // highlight selected vertex
         if(selectedVertex != null){
-            g.setColor(new Color(255, 198, 22));
+            g.setColor(new Color(98, 153, 255));
             g.drawOval(selectedVertex.getX()*20-10, selectedVertex.getY()*20-10, 20, 20);
         }
         // highlight selected edge
@@ -249,7 +256,7 @@ public class GUI_Panel extends JPanel{
             int x2 = selectedEdge.getV2().getX() * 20;
             int y2 = selectedEdge.getV2().getY() * 20;
             g2d.setStroke(new BasicStroke(3));
-            g2d.setColor(new Color(255, 198, 22));
+            g2d.setColor(new Color(98, 153, 255));
             g2d.drawLine(x1, y1, x2, y2);
         }
         // draw edge
