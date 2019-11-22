@@ -88,7 +88,8 @@ public class GUI_Panel extends JPanel{
                             int x1 = startVertex.getX();
                             int y1 = startVertex.getY();
                             String cost = JOptionPane.showInputDialog("Enter the cost");
-                            addEdge(startVertex.getName(), endVertex.getName(), Integer.parseInt(cost));
+                            if(cost != null)
+                                addEdge(startVertex.getName(), endVertex.getName(), Integer.parseInt(cost));
                             break;
                         }
                     }
@@ -573,6 +574,9 @@ public class GUI_Panel extends JPanel{
         shape = null;
         startVertex = null;
         endVertex = null;
+        vertices.clear();
+        edges.clear();
+        vertexSet.clear();
         if(timer != null && timer.isRunning()){
             timer.stop();
         }

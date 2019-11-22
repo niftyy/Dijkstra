@@ -49,13 +49,17 @@ public class GUI_Frame extends JFrame {
         add_vertex.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String vertex_name = JOptionPane.showInputDialog("Enter vertex name");
-                if(vertex_name == null) return;
-                String x = JOptionPane.showInputDialog("Enter x-coordinate");
-                if(x == null) return;
-                String y = JOptionPane.showInputDialog("Enter y-coordinate");
-                if(y == null) return;
-                pane.addVertex(vertex_name, Integer.parseInt(x), Integer.parseInt(y));
+                try {
+                    String vertex_name = JOptionPane.showInputDialog("Enter vertex name");
+                    if(vertex_name == null || vertex_name.compareTo("") == 0) throw new GraphException("Empty Input Exception");
+                    String x = JOptionPane.showInputDialog("Enter x-coordinate");
+                    if(x == null || x.compareTo("") == 0) throw new GraphException("Empty Input Exception");
+                    String y = JOptionPane.showInputDialog("Enter y-coordinate");
+                    if(y == null || y.compareTo("") == 0) throw new GraphException("Empty Input Exception");
+                    pane.addVertex(vertex_name, Integer.parseInt(x), Integer.parseInt(y));
+                } catch (GraphException err){
+                    JOptionPane.showMessageDialog(parent, err.getMessage());
+                }
             }
         });
         vertex.add(add_vertex);
@@ -64,9 +68,9 @@ public class GUI_Frame extends JFrame {
         search_vertex.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String vertex_name = JOptionPane.showInputDialog("Enter vertex name");
-                if(vertex_name == null) return;
                 try {
+                    String vertex_name = JOptionPane.showInputDialog("Enter vertex name");
+                    if(vertex_name == null || vertex_name.compareTo("") == 0) throw new GraphException("Empty Input Exception");
                     Vertex v = pane.findVertex(vertex_name);
                     if(v == null)
                         throw new GraphException("Vertex not Found");
@@ -87,13 +91,13 @@ public class GUI_Frame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String vertex_name = JOptionPane.showInputDialog("Enter vertex name");
                 try {
-                    if(vertex_name == null) return;
+                    if(vertex_name == null || vertex_name.compareTo("") == 0) throw new GraphException("Empty Input Exception");
                     Vertex v = pane.findVertex(vertex_name);
                     if(v == null) throw new GraphException("Vertex not found.");
                     String x = JOptionPane.showInputDialog("Enter new x-coordinate");
-                    if(x == null) return;
+                    if(x == null || x.compareTo("") == 0) throw new GraphException("Empty Input Exception");;
                     String y = JOptionPane.showInputDialog("Enter new y-coordinate");
-                    if(y == null) return;
+                    if(y == null || y.compareTo("") == 0) throw new GraphException("Empty Input Exception");;
                     pane.alterVertex(v, Integer.parseInt(x), Integer.parseInt(y));
                 } catch (GraphException err){
                     JOptionPane.showMessageDialog(parent, err.getMessage());
@@ -120,13 +124,17 @@ public class GUI_Frame extends JFrame {
         add_edge.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String vertex_name1 = JOptionPane.showInputDialog("Enter the first vertex name");
-                if(vertex_name1 == null) return;
-                String vertex_name2 = JOptionPane.showInputDialog("Enter the second vertex name");
-                if(vertex_name2 == null) return;
-                String cost = JOptionPane.showInputDialog("Enter the cost");
-                if(cost == null) return;
-                pane.addEdge(vertex_name1, vertex_name2, Integer.parseInt(cost));
+                try {
+                    String vertex_name1 = JOptionPane.showInputDialog("Enter the first vertex name");
+                    if(vertex_name1 == null || vertex_name1.compareTo("") == 0) throw new GraphException("Empty Input Exception");
+                    String vertex_name2 = JOptionPane.showInputDialog("Enter the second vertex name");
+                    if(vertex_name2 == null || vertex_name2.compareTo("") == 0) throw new GraphException("Empty Input Exception");
+                    String cost = JOptionPane.showInputDialog("Enter the cost");
+                    if(cost == null || cost.compareTo("") == 0) throw new GraphException("Empty Input Exception");
+                    pane.addEdge(vertex_name1, vertex_name2, Integer.parseInt(cost));
+                } catch(GraphException err){
+                    JOptionPane.showMessageDialog(parent, err.getMessage());
+                }
             }
         });
         edge.add(add_edge);
@@ -135,9 +143,11 @@ public class GUI_Frame extends JFrame {
         search_edge.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String vertex_name1 = JOptionPane.showInputDialog("Enter the first vertex name");
-                String vertex_name2 = JOptionPane.showInputDialog("Enter the second vertex name");
                 try {
+                    String vertex_name1 = JOptionPane.showInputDialog("Enter the first vertex name");
+                    if(vertex_name1 == null || vertex_name1.compareTo("") == 0) throw new GraphException("Empty Input Exception");
+                    String vertex_name2 = JOptionPane.showInputDialog("Enter the second vertex name");
+                    if(vertex_name2 == null || vertex_name2.compareTo("") == 0) throw new GraphException("Empty Input Exception");
                     Edge edge = pane.findEdge(vertex_name1, vertex_name2);
                     if(edge == null) throw new GraphException("Edge not found");
                     String message = "Edge vertex 1 : " + edge.getV1().getName() + "\n";
@@ -157,7 +167,9 @@ public class GUI_Frame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     String vertex_name1 = JOptionPane.showInputDialog("Enter the first vertex name");
+                    if(vertex_name1 == null || vertex_name1.compareTo("") == 0) throw new GraphException("Empty Input Exception");
                     String vertex_name2 = JOptionPane.showInputDialog("Enter the second vertex name");
+                    if(vertex_name2 == null || vertex_name2.compareTo("") == 0) throw new GraphException("Empty Input Exception");
                     Edge edge = pane.findEdge(vertex_name1,vertex_name2);
                     if(edge == null) throw new GraphException("Edge not found");
                     int cost = Integer.parseInt(JOptionPane.showInputDialog("Enter new cost"));
@@ -173,16 +185,22 @@ public class GUI_Frame extends JFrame {
         delete_edge.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String vertex_name1 = JOptionPane.showInputDialog("Enter the first vertex name");
-                String vertex_name2 = JOptionPane.showInputDialog("Enter the second vertex name");
-                pane.deleteEdge(vertex_name1,vertex_name2);
+                try {
+                    String vertex_name1 = JOptionPane.showInputDialog("Enter the first vertex name");
+                    if(vertex_name1 == null || vertex_name1.compareTo("") == 0) throw new GraphException("Empty Input Exception");
+                    String vertex_name2 = JOptionPane.showInputDialog("Enter the second vertex name");
+                    if(vertex_name2 == null || vertex_name2.compareTo("") == 0) throw new GraphException("Empty Input Exception");
+                    pane.deleteEdge(vertex_name1,vertex_name2);
+                } catch (GraphException err){
+                    JOptionPane.showMessageDialog(parent, err.getMessage());
+                }
             }
         });
         edge.add(delete_edge);
         //############################################################################
         graphFunctions.add(edge);
         //############################################################################
-        MenuItem input_file = new MenuItem("Input File");
+        MenuItem input_file = new MenuItem("Import Graph");
         input_file.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -219,7 +237,7 @@ public class GUI_Frame extends JFrame {
         });
         graphFunctions.add(input_file);
         //############################################################################
-        MenuItem save_graph = new MenuItem("Save Graph");
+        MenuItem save_graph = new MenuItem("Export Graph");
         save_graph.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -245,8 +263,8 @@ public class GUI_Frame extends JFrame {
                             s = edge.getV1().getName() + " " + edge.getV2().getName() + " " + edge.getCost() + "\n";
                             fw.write(s);
                         }
-                        JFrame frame = new JFrame("Save Graph");
-                        JOptionPane.showMessageDialog(frame,"Saved Successfully");
+                        JFrame frame = new JFrame("Export Graph");
+                        JOptionPane.showMessageDialog(frame,"Exported Successfully");
                         fw.close();
                     } catch (IOException ex) {
                         ex.printStackTrace();
