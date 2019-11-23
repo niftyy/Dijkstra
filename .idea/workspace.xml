@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aa5cb01d-d7dd-4a0b-a793-d8d05569213c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$16.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame$16.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Frame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Panel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/tushar/GUI_Panel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tushar/GUI_Frame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tushar/GUI_Frame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tushar/GUI_Panel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tushar/GUI_Panel.java" afterDir="false" />
     </list>
@@ -19,11 +17,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/tushar/GUI_Panel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="487" selection-start-line="487" selection-end-line="487" />
+            <state relative-caret-position="126">
+              <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -37,29 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/tushar/GUI_Frame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-700">
-              <caret line="323" column="40" selection-start-line="323" selection-start-column="40" selection-end-line="323" selection-end-column="40" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/tushar/CompareVertex.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="6" column="52" selection-start-line="6" selection-start-column="52" selection-end-line="6" selection-end-column="52" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/tushar/CompareEdge.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="6" column="67" selection-start-line="6" selection-start-column="67" selection-end-line="6" selection-end-column="67" />
+            <state relative-caret-position="268">
+              <caret line="232" column="78" selection-start-line="232" selection-start-column="78" selection-end-line="232" selection-end-column="78" />
             </state>
           </provider>
         </entry>
@@ -96,8 +76,8 @@
         <option value="$PROJECT_DIR$/src/com/tushar/CompareVertex.java" />
         <option value="$PROJECT_DIR$/src/com/tushar/CompareEdge.java" />
         <option value="$PROJECT_DIR$/src/com/tushar/GraphTuples.java" />
-        <option value="$PROJECT_DIR$/src/com/tushar/GUI_Frame.java" />
         <option value="$PROJECT_DIR$/src/com/tushar/GUI_Panel.java" />
+        <option value="$PROJECT_DIR$/src/com/tushar/GUI_Frame.java" />
       </list>
     </option>
   </component>
@@ -393,10 +373,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tushar/Compare.java" />
-    <entry file="file://$PROJECT_DIR$/src/com/tushar/CompareVertex.java">
+    <entry file="file://$PROJECT_DIR$/src/com/tushar/GUI_Panel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
-          <caret line="6" column="52" selection-start-line="6" selection-start-column="52" selection-end-line="6" selection-end-column="52" />
+          <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -414,17 +394,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/tushar/GUI_Frame.java">
+    <entry file="file://$PROJECT_DIR$/src/com/tushar/CompareVertex.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-700">
-          <caret line="323" column="40" selection-start-line="323" selection-start-column="40" selection-end-line="323" selection-end-column="40" />
+        <state relative-caret-position="126">
+          <caret line="6" column="52" selection-start-line="6" selection-start-column="52" selection-end-line="6" selection-end-column="52" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/tushar/GUI_Panel.java">
+    <entry file="file://$PROJECT_DIR$/src/com/tushar/GUI_Frame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="487" selection-start-line="487" selection-end-line="487" />
+        <state relative-caret-position="268">
+          <caret line="232" column="78" selection-start-line="232" selection-start-column="78" selection-end-line="232" selection-end-column="78" />
         </state>
       </provider>
     </entry>

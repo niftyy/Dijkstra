@@ -1,13 +1,15 @@
 package com.tushar;
 
-import com.sun.corba.se.impl.orbutil.graph.Graph;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Point2D;
 import java.util.*;
 import javax.swing.Timer;
+
+/*
+*  TODO: Refactor GraphTuples -> GraphTuple
+* */
 
 public class GUI_Panel extends JPanel{
     private int windowWidth;
@@ -503,8 +505,6 @@ public class GUI_Panel extends JPanel{
             JFrame frame = new JFrame("Error");
             JOptionPane.showMessageDialog(frame,err.getMessage());
         }
-        // TODO Animate multiple paths
-        // TODO Add more shapes
     }
 
     public ArrayList<State> getNextStates(State current,ArrayList<State> visited){

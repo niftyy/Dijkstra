@@ -229,7 +229,8 @@ public class GUI_Frame extends JFrame {
                             pane.addEdge(from , to, cost);
                         }
                     } catch(Exception error){
-                        System.out.println(error.getMessage());
+                        JFrame frame = new JFrame("Exception");
+                        JOptionPane.showMessageDialog(frame,error.getMessage());
                     }
                 }
                 else
