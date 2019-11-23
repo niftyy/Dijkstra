@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -247,6 +248,7 @@ public class GUI_Frame extends JFrame {
                     System.out.println(j.getSelectedFile().getAbsolutePath());
                     File newFile = new File(j.getSelectedFile().getAbsolutePath());
                     try {
+                        pane.sortGraph();
                         newFile.createNewFile();
                         FileWriter fw = new FileWriter(j.getSelectedFile().getAbsolutePath());
                         int vertices = pane.getVertices().size();

@@ -1,5 +1,7 @@
 package com.tushar;
 
+import com.sun.corba.se.impl.orbutil.graph.Graph;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -13,11 +15,8 @@ public class GUI_Panel extends JPanel{
     private ArrayList<Vertex> vertices;
     private ArrayList<Edge> edges;
     private Set<String> vertexSet;
-    private Shape shape;
-    private Shape start, end;
-    private Timer timer;
-    private int num;
     private ArrayList<Vertex> tracedPath;
+    private Shape start, end;
     private Vertex selectedVertex;
     private Edge selectedEdge;
     // MODE SELECTORS
@@ -28,6 +27,7 @@ public class GUI_Panel extends JPanel{
     Vertex endVertex;
     int mouseX;
     int mouseY;
+    ArrayList<GraphTuples> graphTuples;
     GUI_Panel(int height,int width){
         super();
         this.windowWidth = width;
@@ -43,6 +43,9 @@ public class GUI_Panel extends JPanel{
         this.paintMode = false;
         this.startVertex = null;
         this.endVertex = null;
+        this.graphTuples = new ArrayList<>();
+        this.start = null;
+        this.end = null;
         setLayout(new GridBagLayout());
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setBackground(new Color(45, 45, 45));
@@ -211,9 +214,9 @@ public class GUI_Panel extends JPanel{
             g.drawLine(x1, y1, x2, y2);
             g.drawString(Integer.toString(e.getCost()), (x1+x2)/2 + 5, (y1+y2)/2 + 5);
         }
-        g2d.setStroke(new BasicStroke(3));
         if(start != null && end !=null){
             g2d.setColor(new Color(42, 255, 223));
+            g2d.setStroke(new BasicStroke(3));
             for(int i=0 ; i<tracedPath.size()-1 ; i++){
                 g2d.drawLine(tracedPath.get(i).getX()*20, tracedPath.get(i).getY()*20, tracedPath.get(i+1).getX()*20, tracedPath.get(i+1).getY()*20);
             }
@@ -224,36 +227,42 @@ public class GUI_Panel extends JPanel{
             g.fillOval(vertices.get(i).getX()*20 - 10,vertices.get(i).getY()*20 - 10,20,20);
            // g.drawOval(vertices.get(i).getX()*20 - 10,vertices.get(i).getY()*20 - 10,20,20);
         }
-        // highlight start end end vertex for dijkstra
-        if(start != null  && end != null){
-            g.setColor(new Color(255, 198, 0));
-            g2d.fillOval((int)start.getX()*20-10, (int)start.getY()*20-10, 20, 20);
-            g2d.fillOval((int)end.getX()*20-10, (int)end.getY()*20-10, 20, 20);
-        }
-        for(Vertex v: vertices){
-            g.setColor(new Color(0, 0, 0));
-            g.drawString(v.getName(),v.getX()*20-5,v.getY()*20+5);
-        }
-        // draw shape for animation
-        if(shape != null){
-            g.setColor(new Color(255, 42, 74));
-            if(shape instanceof Circle)
-                g.fillOval((int) shape.getX(),(int) shape.getY(), (int) shape.getLength(), (int) shape.getWidth());
-            else if(shape instanceof Square)
-                g.fillRect((int) shape.getX(),(int) shape.getY(), (int) shape.getLength(), (int) shape.getWidth());
-            else if(shape instanceof Rectangle)
-                g.fillRect((int) shape.getX(),(int) shape.getY(), (int) shape.getLength(), (int) shape.getWidth());
-            else if(shape instanceof  Triangle)
-                g.drawPolygon(new int[] {((Triangle) shape).getX1(), ((Triangle) shape).getX2(), ((Triangle) shape).getX3()}, new int[] {((Triangle) shape).getY1(), ((Triangle) shape).getY2(), ((Triangle) shape).getY3()}, 3);
-            else if(shape instanceof Plus){
-                g2d.setStroke(new BasicStroke(4));
-                g2d.drawLine(((Plus) shape).getX1(), ((Plus) shape).getY1(), ((Plus) shape).getX2(), ((Plus) shape).getY2());
-                g2d.drawLine(((Plus) shape).getX3(), ((Plus) shape).getY3(), ((Plus) shape).getX4(), ((Plus) shape).getY4());
-            } else if(shape instanceof Cross){
-                g2d.setStroke(new BasicStroke(4));
-                g2d.drawLine(((Cross) shape).getX1(), ((Cross) shape).getY1(), ((Cross) shape).getX2(), ((Cross) shape).getY2());
-                g2d.drawLine(((Cross) shape).getX3(), ((Cross) shape).getY3(), ((Cross) shape).getX4(), ((Cross) shape).getY4());
+        for(GraphTuples t: graphTuples){
+            g2d.setStroke(new BasicStroke(3));
+            if(t.start != null && t.end !=null){
+                g2d.setColor(new Color(42, 255, 223));
+                for(int i=0 ; i<t.tracedPath.size()-1 ; i++){
+                    g2d.drawLine(t.tracedPath.get(i).getX()*20, t.tracedPath.get(i).getY()*20, t.tracedPath.get(i+1).getX()*20, t.tracedPath.get(i+1).getY()*20);
+                }
             }
+            // highlight start end end vertex for dijkstra
+            if(t.start != null  && t.end != null){
+                g.setColor(new Color(255, 198, 0));
+                g2d.fillOval((int)t.start.getX()*20-10, (int)t.start.getY()*20-10, 20, 20);
+                g2d.fillOval((int)t.end.getX()*20-10, (int)t.end.getY()*20-10, 20, 20);
+            }
+            // draw shape for animation
+            if(t.shape != null){
+                g.setColor(new Color(255, 42, 74));
+                if(t.shape instanceof Circle)
+                    g.fillOval((int) t.shape.getX(),(int) t.shape.getY(), (int) t.shape.getLength(), (int) t.shape.getWidth());
+                else if(t.shape instanceof Square)
+                    g.fillRect((int) t.shape.getX(),(int) t.shape.getY(), (int) t.shape.getLength(), (int) t.shape.getWidth());
+                else if(t.shape instanceof Rectangle)
+                    g.fillRect((int) t.shape.getX(),(int) t.shape.getY(), (int) t.shape.getLength(), (int) t.shape.getWidth());
+                else if(t.shape instanceof  Triangle)
+                    g.drawPolygon(new int[] {((Triangle) t.shape).getX1(), ((Triangle) t.shape).getX2(), ((Triangle) t.shape).getX3()}, new int[] {((Triangle) t.shape).getY1(), ((Triangle) t.shape).getY2(), ((Triangle) t.shape).getY3()}, 3);
+                else if(t.shape instanceof Plus){
+                    g2d.setStroke(new BasicStroke(4));
+                    g2d.drawLine(((Plus) t.shape).getX1(), ((Plus) t.shape).getY1(), ((Plus) t.shape).getX2(), ((Plus) t.shape).getY2());
+                    g2d.drawLine(((Plus) t.shape).getX3(), ((Plus) t.shape).getY3(), ((Plus) t.shape).getX4(), ((Plus) t.shape).getY4());
+                } else if(t.shape instanceof Cross){
+                    g2d.setStroke(new BasicStroke(4));
+                    g2d.drawLine(((Cross) t.shape).getX1(), ((Cross) t.shape).getY1(), ((Cross) t.shape).getX2(), ((Cross) t.shape).getY2());
+                    g2d.drawLine(((Cross) t.shape).getX3(), ((Cross) t.shape).getY3(), ((Cross) t.shape).getX4(), ((Cross) t.shape).getY4());
+                }
+            }
+
         }
         // highlight selected vertex
         if(selectedVertex != null){
@@ -270,11 +279,17 @@ public class GUI_Panel extends JPanel{
             g2d.setColor(new Color(98, 153, 255));
             g2d.drawLine(x1, y1, x2, y2);
         }
+        // draw vertex names
+        for(Vertex v: vertices){
+            g.setColor(new Color(0, 0, 0));
+            g.drawString(v.getName(),v.getX()*20-5,v.getY()*20+5);
+        }
         // draw edge
         if(startVertex != null){
             int x1 = startVertex.getX() * 20;
             int y1 = startVertex.getY() * 20;
             g2d.setStroke(new BasicStroke(1));
+            g2d.setColor(new Color(255, 255, 255));
             g2d.drawLine(x1, y1, mouseX * 20, mouseY * 20);
         }
     }
@@ -425,7 +440,7 @@ public class GUI_Panel extends JPanel{
         }
     }
 
-    public void dijkstra(String source, String destination, boolean text, boolean onGraph, String shape){
+    public void dijkstra(String source, String destination, boolean text, boolean onGraph, String s){
         try {
             if(!vertexSet.contains(source)) throw new GraphException("Source does not exist");
             if(!vertexSet.contains(destination)) throw new GraphException("Destination does not exist");
@@ -451,16 +466,27 @@ public class GUI_Panel extends JPanel{
                 if(current.getV().getName().compareTo(destination_vertex.getName()) == 0){
                     visited.add(current);
                     ArrayList<Vertex> traced = trace(destination_vertex, visited, text);
-                    if(timer != null && timer.isRunning()){
-                        timer.stop();
-                    }
                     if(onGraph){
                         drawPath(traced);
                     } else if(text){
                         displayPath(traced);
                     } else {
+                        Shape shape = new Circle(0, 0);
+                        if(s.compareTo("circle") == 0)
+                            shape = new Circle(traced.get(0).getX()*20-10,traced.get(0).getY()*20-10);
+                        else if(s.compareTo("square") == 0)
+                            shape = new Square(traced.get(0).getX()*20-10,traced.get(0).getY()*20-10);
+                        else if(s.compareTo("rectangle") == 0)
+                            shape = new Rectangle(traced.get(0).getX()*20-10,traced.get(0).getY()*20-10);
+                        else if(s.compareTo("triangle") == 0)
+                            shape = new Triangle(traced.get(0).getX()*20-10,traced.get(0).getY()*20-10);
+                        else if(s.compareTo("plus") == 0)
+                            shape = new Plus(traced.get(0).getX()*20,traced.get(0).getY()*20);
+                        else if(s.compareTo("cross") == 0)
+                            shape = new Cross(traced.get(0).getX()*20,traced.get(0).getY()*20);
+                        graphTuples.add(new GraphTuples(shape, traced));
                         drawPath(traced);
-                        animate(traced, shape);
+                        animate(graphTuples.get(graphTuples.size()-1));
                     }
                     return;
                 }
@@ -528,49 +554,37 @@ public class GUI_Panel extends JPanel{
         return null;
     }
 
-    public void animate(ArrayList<Vertex> traced, String s){
-        if(s.compareTo("circle") == 0)
-            shape = new Circle(traced.get(0).getX()*20-10,traced.get(0).getY()*20-10);
-        else if(s.compareTo("square") == 0)
-            shape = new Square(traced.get(0).getX()*20-10,traced.get(0).getY()*20-10);
-        else if(s.compareTo("rectangle") == 0)
-            shape = new Rectangle(traced.get(0).getX()*20-10,traced.get(0).getY()*20-10);
-        else if(s.compareTo("triangle") == 0)
-            shape = new Triangle(traced.get(0).getX()*20-10,traced.get(0).getY()*20-10);
-        else if(s.compareTo("plus") == 0)
-            shape = new Plus(traced.get(0).getX()*20,traced.get(0).getY()*20);
-        else if(s.compareTo("cross") == 0)
-            shape = new Cross(traced.get(0).getX()*20,traced.get(0).getY()*20);
-        num = 0;
-        timer = new Timer(50, new ActionListener() {
+    public void animate(GraphTuples t){
+        t.num = 0;
+        t.timer = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int dx = (int)(traced.get((num+1)%traced.size()).getX()*20-10 - shape.getX());
-                int dy = (int)(traced.get((num+1)%traced.size()).getY()*20-10 - shape.getY());
+                int dx = (int)(t.tracedPath.get((t.num+1)%t.tracedPath.size()).getX()*20-10 - t.shape.getX());
+                int dy = (int)(t.tracedPath.get((t.num+1)%t.tracedPath.size()).getY()*20-10 - t.shape.getY());
                 if(dx == 0 && dy == 0){
-                    num++;
-                    if(num == traced.size()-1){
-                        shape.setX(traced.get(0).getX()*20-10);
-                        shape.setY(traced.get(0).getY()*20-10);
-                        num = 0;
+                    t.num++;
+                    if(t.num == t.tracedPath.size()-1){
+                        t.shape.setX(t.tracedPath.get(0).getX()*20-10);
+                        t.shape.setY(t.tracedPath.get(0).getY()*20-10);
+                        t.num = 0;
                     }
                 } else {
                     double steps = Math.abs(dx) > Math.abs(dy) ? Math.abs(dx) : Math.abs(dy);
                     steps = steps/10;
                     double Xinc = dx / (double) steps;
                     double Yinc = dy / (double) steps;
-                    double X = shape.getX(), Y = shape.getY();
+                    double X = t.shape.getX(), Y = t.shape.getY();
                     X += Xinc;
                     Y += Yinc;
-                    shape.setX(X = Math.round(X));
-                    shape.setY(Y = Math.round(Y));
+                    t.shape.setX(X = Math.round(X));
+                    t.shape.setY(Y = Math.round(Y));
                     removeAll();
                     revalidate();
                     repaint();
                 }
             }
         });
-        timer.start();
+        t.timer.start();
     }
 
     public void displayPath(ArrayList<Vertex> traced){
@@ -597,15 +611,15 @@ public class GUI_Panel extends JPanel{
         start = null;
         end = null;
         selectedVertex = null;
-        shape = null;
         startVertex = null;
         endVertex = null;
         vertices.clear();
         edges.clear();
         vertexSet.clear();
-        if(timer != null && timer.isRunning()){
-            timer.stop();
+        for(GraphTuples t: graphTuples){
+            t.timer.stop();
         }
+        graphTuples.clear();
         while (vertices.size()>0){
             vertices.remove(0);
         }
@@ -615,5 +629,10 @@ public class GUI_Panel extends JPanel{
         removeAll();
         revalidate();
         repaint();
+    }
+
+    public void sortGraph(){
+        Collections.sort(vertices, new CompareVertex());
+        Collections.sort(edges, new CompareEdge());
     }
 }
