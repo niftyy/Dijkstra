@@ -8,7 +8,7 @@ public class Triangle extends Shape{
     }
 
     public void updateCoordinates(){
-        double dx = (double) 20 / 1.414;
+        double dx = (double) 15 / 1.414;
         double dy = dx;
         x1 = (int) Math.round(x + dx);
         y1 = (int) Math.round(y + dy);

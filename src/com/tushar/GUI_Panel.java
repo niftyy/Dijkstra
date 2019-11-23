@@ -249,6 +249,10 @@ public class GUI_Panel extends JPanel{
                 g2d.setStroke(new BasicStroke(4));
                 g2d.drawLine(((Plus) shape).getX1(), ((Plus) shape).getY1(), ((Plus) shape).getX2(), ((Plus) shape).getY2());
                 g2d.drawLine(((Plus) shape).getX3(), ((Plus) shape).getY3(), ((Plus) shape).getX4(), ((Plus) shape).getY4());
+            } else if(shape instanceof Cross){
+                g2d.setStroke(new BasicStroke(4));
+                g2d.drawLine(((Cross) shape).getX1(), ((Cross) shape).getY1(), ((Cross) shape).getX2(), ((Cross) shape).getY2());
+                g2d.drawLine(((Cross) shape).getX3(), ((Cross) shape).getY3(), ((Cross) shape).getX4(), ((Cross) shape).getY4());
             }
         }
         // highlight selected vertex
@@ -533,6 +537,8 @@ public class GUI_Panel extends JPanel{
             shape = new Triangle(traced.get(0).getX()*20-10,traced.get(0).getY()*20-10);
         else if(s.compareTo("plus") == 0)
             shape = new Plus(traced.get(0).getX()*20,traced.get(0).getY()*20);
+        else if(s.compareTo("cross") == 0)
+            shape = new Cross(traced.get(0).getX()*20,traced.get(0).getY()*20);
         num = 0;
         timer = new Timer(50, new ActionListener() {
             @Override
