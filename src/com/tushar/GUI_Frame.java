@@ -215,8 +215,8 @@ public class GUI_Frame extends JFrame {
                         for(int i=0 ; i<v ; i++){
                             st = new StringTokenizer(sc.nextLine());
                             String name = st.nextToken();
-                            int x = Integer.parseInt(st.nextToken());
-                            int y = Integer.parseInt(st.nextToken());
+                            int x = Integer.parseInt(st.nextToken()) / 5; // Scaling for test input
+                            int y = Integer.parseInt(st.nextToken()) / 5;
                             pane.addVertex(name, x, y);
                         }
                         int edges = Integer.parseInt(sc.nextLine());
@@ -253,7 +253,7 @@ public class GUI_Frame extends JFrame {
                         String s = vertices + "\n";
                         fw.write(s);
                         for(Vertex v: pane.getVertices()){
-                            s = v.getName() + " " + v.getX() + " " + v.getY() + "\n";
+                            s = v.getName() + " " + v.getX()*5 + " " + v.getY()*5 + "\n";
                             fw.write(s);
                         }
                         int edges = pane.getEdges().size();

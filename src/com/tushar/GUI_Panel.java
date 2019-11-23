@@ -342,13 +342,15 @@ public class GUI_Panel extends JPanel{
     public void deleteVertex(String vertex_name){
         try {
             int i;
+            boolean deleted = false;
             for(i = 0;i < vertices.size();i++){
                 if(vertices.get(i).getName().compareTo(vertex_name) == 0){
                     vertices.remove(vertices.get(i));
+                    deleted = true;
                     break;
                 }
             }
-            if(i == vertices.size()) throw new GraphException("Vertex not found");
+            if(!deleted) throw new GraphException("Vertex not found");
             i = 0;
             selectedVertex = null;
             while(i < edges.size()){
@@ -358,13 +360,13 @@ public class GUI_Panel extends JPanel{
                     i++;
                 }
             }
-            removeAll();
-            revalidate();
-            repaint();
         } catch (GraphException err){
             JFrame frame = new JFrame("Error");
             JOptionPane.showMessageDialog(frame, err.getMessage());
         }
+        removeAll();
+        revalidate();
+        repaint();
     }
 
     public void addEdge(String vertex_name1,String vertex_name2,int cost){
