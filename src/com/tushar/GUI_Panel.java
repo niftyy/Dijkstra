@@ -485,7 +485,6 @@ public class GUI_Panel extends JPanel{
                         else if(s.compareTo("cross") == 0)
                             shape = new Cross(traced.get(0).getX()*20,traced.get(0).getY()*20);
                         graphTuples.add(new GraphTuples(shape, traced));
-                        drawPath(traced);
                         animate(graphTuples.get(graphTuples.size()-1));
                     }
                     return;
@@ -634,5 +633,15 @@ public class GUI_Panel extends JPanel{
     public void sortGraph(){
         Collections.sort(vertices, new CompareVertex());
         Collections.sort(edges, new CompareEdge());
+    }
+
+    public void stopAllAnimations(){
+        for(GraphTuples t: graphTuples){
+            t.timer.stop();
+        }
+        graphTuples.clear();
+        removeAll();
+        revalidate();
+        repaint();
     }
 }

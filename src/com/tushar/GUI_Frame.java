@@ -314,6 +314,14 @@ public class GUI_Frame extends JFrame {
             }
         });
         dijkstra.add(drawPath);
+        MenuItem stopAllAnimations = new MenuItem("Stop All Animations");
+        stopAllAnimations.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pane.stopAllAnimations();
+            }
+        });
+        dijkstra.add(stopAllAnimations);
         //############################################################################
         menu_bar.add(dijkstra);
         setMenuBar(menu_bar);
