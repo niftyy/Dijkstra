@@ -243,6 +243,13 @@ public class GUI_Panel extends JPanel{
                 g.fillRect((int) shape.getX(),(int) shape.getY(), (int) shape.getLength(), (int) shape.getWidth());
             else if(shape instanceof Rectangle)
                 g.fillRect((int) shape.getX(),(int) shape.getY(), (int) shape.getLength(), (int) shape.getWidth());
+            else if(shape instanceof  Triangle)
+                g.drawPolygon(new int[] {((Triangle) shape).getX1(), ((Triangle) shape).getX2(), ((Triangle) shape).getX3()}, new int[] {((Triangle) shape).getY1(), ((Triangle) shape).getY2(), ((Triangle) shape).getY3()}, 3);
+            else if(shape instanceof Plus){
+                g2d.setStroke(new BasicStroke(4));
+                g2d.drawLine(((Plus) shape).getX1(), ((Plus) shape).getY1(), ((Plus) shape).getX2(), ((Plus) shape).getY2());
+                g2d.drawLine(((Plus) shape).getX3(), ((Plus) shape).getY3(), ((Plus) shape).getX4(), ((Plus) shape).getY4());
+            }
         }
         // highlight selected vertex
         if(selectedVertex != null){
@@ -522,6 +529,10 @@ public class GUI_Panel extends JPanel{
             shape = new Square(traced.get(0).getX()*20-10,traced.get(0).getY()*20-10);
         else if(s.compareTo("rectangle") == 0)
             shape = new Rectangle(traced.get(0).getX()*20-10,traced.get(0).getY()*20-10);
+        else if(s.compareTo("triangle") == 0)
+            shape = new Triangle(traced.get(0).getX()*20-10,traced.get(0).getY()*20-10);
+        else if(s.compareTo("plus") == 0)
+            shape = new Plus(traced.get(0).getX()*20,traced.get(0).getY()*20);
         num = 0;
         timer = new Timer(50, new ActionListener() {
             @Override

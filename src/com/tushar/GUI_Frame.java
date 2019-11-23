@@ -285,7 +285,7 @@ public class GUI_Frame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String source = JOptionPane.showInputDialog("Enter source");
                 String destination = JOptionPane.showInputDialog("Enter destination");
-                String []options = {"circle", "square", "rectangle"};
+                String []options = {"circle", "square", "rectangle", "triangle", "plus"};
                 Object shape = JOptionPane.showInputDialog(null, "Choose your shape", "Shape", JOptionPane.ERROR_MESSAGE, null, options, options[0]);
                 pane.dijkstra(source,destination, false, false, (String)shape);
             }
