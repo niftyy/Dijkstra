@@ -240,9 +240,9 @@ public class GUI_Panel extends JPanel{
             if(shape instanceof Circle)
                 g.fillOval((int) shape.getX(),(int) shape.getY(), (int) shape.getLength(), (int) shape.getWidth());
             else if(shape instanceof Square)
-                g.drawRect((int) shape.getX()*20-10,(int) shape.getY()*20-10, (int) shape.getLength(), (int) shape.getWidth());
+                g.fillRect((int) shape.getX(),(int) shape.getY(), (int) shape.getLength(), (int) shape.getWidth());
             else if(shape instanceof Rectangle)
-                g.drawRect((int) shape.getX()*20-10,(int) shape.getY()*20-10, (int) shape.getLength(), (int) shape.getWidth());
+                g.fillRect((int) shape.getX(),(int) shape.getY(), (int) shape.getLength(), (int) shape.getWidth());
         }
         // highlight selected vertex
         if(selectedVertex != null){
@@ -519,9 +519,9 @@ public class GUI_Panel extends JPanel{
         if(s.compareTo("circle") == 0)
             shape = new Circle(traced.get(0).getX()*20-10,traced.get(0).getY()*20-10);
         else if(s.compareTo("square") == 0)
-            shape = new Square(traced.get(0).getX(),traced.get(0).getY());
+            shape = new Square(traced.get(0).getX()*20-10,traced.get(0).getY()*20-10);
         else if(s.compareTo("rectangle") == 0)
-            shape = new Rectangle(traced.get(0).getX(),traced.get(0).getY());
+            shape = new Rectangle(traced.get(0).getX()*20-10,traced.get(0).getY()*20-10);
         num = 0;
         timer = new Timer(50, new ActionListener() {
             @Override
