@@ -14,11 +14,14 @@ import javax.swing.Timer;
 public class GUI_Panel extends JPanel{
     private int windowWidth;
     private int windowHeight;
+    // For Graph
     private ArrayList<Vertex> vertices;
     private ArrayList<Edge> edges;
     private Set<String> vertexSet;
+    // For Highlighting path
     private ArrayList<Vertex> tracedPath;
     private Shape start, end;
+    // for edge/vertex selection using mouse
     private Vertex selectedVertex;
     private Edge selectedEdge;
     // MODE SELECTORS
@@ -29,6 +32,7 @@ public class GUI_Panel extends JPanel{
     Vertex endVertex;
     int mouseX;
     int mouseY;
+    // for storing data for multiple animations
     ArrayList<GraphTuples> graphTuples;
     GUI_Panel(int height,int width){
         super();
@@ -362,6 +366,7 @@ public class GUI_Panel extends JPanel{
             boolean deleted = false;
             for(i = 0;i < vertices.size();i++){
                 if(vertices.get(i).getName().compareTo(vertex_name) == 0){
+                    vertexSet.remove(vertices.get(i).getName());
                     vertices.remove(vertices.get(i));
                     deleted = true;
                     break;
