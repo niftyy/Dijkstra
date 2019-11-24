@@ -228,7 +228,8 @@ public class GUI_Frame extends JFrame {
                         }
                     } catch(Exception error){
                         JFrame frame = new JFrame("Exception");
-                        JOptionPane.showMessageDialog(frame,error.getMessage());
+                        JOptionPane.showMessageDialog(frame,"Could not parse the file.");
+                        pane.renew();
                     }
                 }
                 else
