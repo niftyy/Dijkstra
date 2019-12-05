@@ -55,7 +55,7 @@ public class GUI_Frame extends JFrame {
                     if(x == null || x.compareTo("") == 0) throw new GraphException("Empty Input Exception");
                     String y = JOptionPane.showInputDialog("Enter y-coordinate");
                     if(y == null || y.compareTo("") == 0) throw new GraphException("Empty Input Exception");
-                    pane.addVertex(vertex_name, Integer.parseInt(x), Integer.parseInt(y));
+                    pane.addVertex(vertex_name, Integer.parseInt(x) / 5, Integer.parseInt(y) / 5);
                 } catch (GraphException err){
                     JOptionPane.showMessageDialog(parent, err.getMessage());
                 }

@@ -3,10 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="aa5cb01d-d7dd-4a0b-a793-d8d05569213c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/GraphVisualization/GUI_Frame$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/GraphVisualization/GUI_Frame$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/GraphVisualization/GUI_Panel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/GraphVisualization/GUI_Panel$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/GraphVisualization/GUI_Panel$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/GraphVisualization/GUI_Panel$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/GraphVisualization/GUI_Panel$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/GraphVisualization/GUI_Panel$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/GraphVisualization/GUI_Panel$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/GraphVisualization/GUI_Panel$4.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/GraphVisualization/GUI_Panel$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/GraphVisualization/GUI_Panel$5.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Tushar/com/GraphVisualization/GUI_Panel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tushar/com/GraphVisualization/GUI_Panel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/GraphVisualization/GUI_Panel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/GraphVisualization/GUI_Panel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/GraphVisualization/GUI_Frame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/GraphVisualization/GUI_Frame.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,8 +26,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/GraphVisualization/GUI_Panel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="35" column="39" lean-forward="true" selection-start-line="35" selection-start-column="39" selection-end-line="35" selection-end-column="39" />
+            <state relative-caret-position="-533">
+              <caret line="393" column="16" selection-start-line="393" selection-start-column="16" selection-end-line="393" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -31,8 +35,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/GraphVisualization/GUI_Frame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="217">
-              <caret line="344" column="35" lean-forward="true" selection-start-line="344" selection-start-column="35" selection-end-line="344" selection-end-column="35" />
+            <state relative-caret-position="-5990">
+              <caret line="57" column="98" selection-start-line="57" selection-start-column="98" selection-end-line="57" selection-end-column="98" />
             </state>
           </provider>
         </entry>
@@ -71,8 +75,8 @@
         <option value="$PROJECT_DIR$/src/com/tushar/GraphTuples.java" />
         <option value="$PROJECT_DIR$/src/com/tushar/GUI_Frame.java" />
         <option value="$PROJECT_DIR$/src/com/tushar/GUI_Panel.java" />
-        <option value="$PROJECT_DIR$/src/com/GraphVisualization/GUI_Frame.java" />
         <option value="$PROJECT_DIR$/src/com/GraphVisualization/GUI_Panel.java" />
+        <option value="$PROJECT_DIR$/src/com/GraphVisualization/GUI_Frame.java" />
       </list>
     </option>
   </component>
@@ -89,7 +93,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -112,6 +115,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -190,7 +194,7 @@
     <frame x="0" y="23" width="1440" height="877" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2732475" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27682403" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -391,15 +395,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/GraphVisualization/GUI_Frame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="344" column="35" lean-forward="true" selection-start-line="344" selection-start-column="35" selection-end-line="344" selection-end-column="35" />
+        <state relative-caret-position="-5990">
+          <caret line="57" column="98" selection-start-line="57" selection-start-column="98" selection-end-line="57" selection-end-column="98" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/GraphVisualization/GUI_Panel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="35" column="39" lean-forward="true" selection-start-line="35" selection-start-column="39" selection-end-line="35" selection-end-column="39" />
+        <state relative-caret-position="-533">
+          <caret line="393" column="16" selection-start-line="393" selection-start-column="16" selection-end-line="393" selection-end-column="16" />
         </state>
       </provider>
     </entry>
