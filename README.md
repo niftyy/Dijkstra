@@ -22,3 +22,6 @@
 * e : Edge mode toggle
 * p : Paint/Draw mode toggle
 * c : cancel all modes
+
+## Testing
+ You can test the program using given sample inputs and outputs in 'test-inputs' directory.
